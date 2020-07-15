@@ -97,7 +97,7 @@ const listOfMetals = function (metals) {
     result.push(element.name + " " + element.type);
   }
 
-  console.log(result);
+  // console.log(result);
 
   return result;
 };
@@ -105,3 +105,22 @@ const listOfMetals = function (metals) {
 listOfMetals(metals);
 
 // Question 3: Create an object containing the metals by type
+
+const metalsByType = function (metals) {
+  let result = {};
+
+  for (const element of metals) {
+    result[element.type] = [];
+  }
+
+  // console.log(result);
+
+  for (const arrElement of metals) {
+    result[arrElement["type"]].push(arrElement["name"]);
+  }
+
+  console.log(result);
+  return result;
+};
+
+metalsByType(metals);

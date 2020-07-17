@@ -166,32 +166,46 @@ let avgConcentration = function (metals) {
   let finalResult = {};
 
   for (const element of metals) {
-    // console.log(element["composition"]);
     for (const [key] of Object.entries(element["composition"])) {
       result[key] = [];
+      finalResult[key] = [];
     }
   }
 
-  // console.log(result[key]);
+  // console.log(finalResult);
 
   for (const element of metals) {
     for (const [key, value] of Object.entries(element["composition"])) {
       // console.log(value);
-
+      // console.log(value);
       result[key].push(value);
     }
   }
 
   // console.log(result);
 
-  let arr;
-
-  for (const elem of Object.values(result)) {
-    arr = elem.reduce((a, b) => a + b, 0) / elem.length;
-    console.log(arr);
+  for (const [key, values] of Object.entries(result)) {
+    // console.log(average(elem));
+    // console.log(result[key]);
+    // console.log(values);
+    result[key] = average(values);
   }
 
-  // console.log(arr);
+  console.log(result);
+
+  return result;
+
+  // for (const elem of Object.values(result)) {
+  //   // console.log(average(elem));
+  //   console.log(elem);
+  // }
+
+  // let arr;
+
+  // for (const elem of Object.values(result)) {
+  //   arr = elem.reduce((a, b) => a + b, 0) / elem.length;
+  //   console.log(arr);
+  // }
 };
 
 let average = function (elem) {

@@ -191,7 +191,7 @@ let avgConcentration = function (metals) {
     result[key] = average(values);
   }
 
-  console.log(result);
+  // console.log(result);
 
   return result;
 
@@ -209,7 +209,10 @@ let avgConcentration = function (metals) {
 };
 
 let average = function (elem) {
-  let arr = elem.reduce((a, b) => a + b, 0) / elem.length;
+  let arr =
+    elem.reduce((a, b) => {
+      return a + b;
+    }) / elem.length;
   return arr;
 };
 
@@ -228,3 +231,161 @@ avgConcentration(metals);
 //   sulfur: 0.025,
 //   vanadium:0.4,
 // }
+
+// Part 2 - Solving the questions differently
+
+// Question 1: Create a list of all metals in the collection
+
+// `["1084", "1075", "80CrV2", "S30V", "420HC"]`
+
+let listMetals = function (metals) {
+  let result = [];
+
+  for (const element of metals) {
+    result.push(element.name);
+  }
+  // console.log(result);
+};
+
+listMetals(metals);
+
+// Question 2: Create a list of all metals with their type in the collection
+
+let typeMetals = function (metals) {
+  let result = [];
+
+  for (const element of metals) {
+    result.push(element.name + " " + element.type);
+  }
+
+  // console.log(result);
+};
+
+typeMetals(metals);
+
+// Question 3: Create an object containing the metals by type
+
+let metalsByTypeList = function (metals) {
+  let result = {};
+
+  for (const element of metals) {
+    result[element.type] = [];
+  }
+
+  // console.log(result);
+
+  for (const elem of metals) {
+    result[elem.type].push(elem.name);
+  }
+  // console.log(result);
+};
+
+metalsByTypeList(metals);
+
+// Question 4: Create a list of all metals sorted by their carbon concentration (in descending order)
+
+let metalsListDescending = function (metals) {
+  let resultMetals = metals.sort(function (x, y) {
+    return y.composition.carbon - x.composition.carbon;
+  });
+
+  let result = [];
+
+  // console.log(resultMetals);
+
+  for (const elements of metals) {
+    result.push(elements.name);
+  }
+
+  // console.log(result);
+};
+
+metalsListDescending(metals);
+
+// Question 5: Create a list of every element used in the composition of the metals, and store their average concentration
+
+let metalsListAverage = function (metals) {
+  let result = {};
+
+  for (const elements of metals) {
+    for (const keys of Object.keys(elements["composition"])) {
+      result[keys] = [];
+    }
+  }
+
+  for (const elements of metals) {
+    for (const [keys, values] of Object.entries(elements["composition"])) {
+      result[keys].push(values);
+    }
+  }
+
+  for (const [keys, values] of Object.entries(result)) {
+    result[keys] = average(values).toFixed(3);
+  }
+
+  // console.log(result);
+};
+
+let averageFunc = function (elem) {
+  let arr = elem.reduce((a, b) => a + b) / elem.length;
+  return arr;
+};
+
+metalsListAverage(metals);
+
+// Part 4 - Solving the questions differently
+
+// Question 1: Create a list of all metals in the collection
+
+let listMetalsCollection = function (metals) {
+  let result = [];
+  metals.forEach((element) => result.push(element.name));
+
+  // console.log(result);
+  return result;
+};
+
+listMetalsCollection(metals);
+
+// Question 2: Create a list of all metals with their type in the collection
+
+let listMetalsInCollection = function (metals) {
+  let result = [];
+
+  metals.forEach((element) => result.push(element.name + " " + element.type));
+
+  // console.log(result);
+};
+
+listMetalsInCollection(metals);
+
+// Question 3: Create an object containing the metals by type
+
+let listMetalsByType = function (metals) {
+  let result = {};
+  metals.forEach((element) => (result[element.type] = []));
+
+  metals.forEach((elem) => result[elem.type].push(elem.name));
+
+  // console.log(result);
+};
+
+listMetalsByType(metals);
+
+// Question 4: Create a list of all metals sorted by their carbon concentration (in descending order)
+
+let listMetalsSortedBy = function (metals) {
+  let resultMetals = metals.sort(function (x, y) {
+    return y.composition.carbon - x.composition.carbon;
+  });
+
+  let result = [];
+
+  resultMetals.forEach((element) => result.push(element.name));
+
+  console.log(result);
+};
+
+listMetalsSortedBy(metals);
+
+// Question 5: Create a list of every element used in the composition of the metals, and store their average concentration

@@ -191,7 +191,7 @@ let avgConcentration = function (metals) {
     result[key] = average(values);
   }
 
-  // console.log(result);
+  console.log(result);
 
   return result;
 
@@ -739,7 +739,7 @@ const allMetalsTypeLast = function (metalsLast) {
     result.push(valuesFirst + " " + valuesSecond);
   });
 
-  console.log(result);
+  // console.log(result);
 
   return result;
 };
@@ -747,3 +747,90 @@ const allMetalsTypeLast = function (metalsLast) {
 allMetalsTypeLast(metalsLast);
 
 // Question 3: Create an object containing the metals by type
+
+const metalsByTypeObject = function (metalsLast) {
+  let result = {};
+
+  metalsLast.map(function (x) {
+    result[x.type] = [];
+  });
+
+  // console.log(result);
+
+  metalsLast.map(function (x) {
+    result[x.type].push(x.name);
+  });
+
+  // console.log(result);
+  return result;
+};
+
+metalsByTypeObject(metalsLast);
+
+// Question 4: Create a list of all metals sorted by their carbon concentration (in descending order)
+
+let resultMetalsLast = metals.filter((element, index) => {
+  return (
+    index === 0 ||
+    element.composition.carbon !== metals[index - 1].composition.carbon
+  );
+});
+
+let metalsListSortedLast = function (resultMetalsLast) {
+  result = [];
+
+  resultMetalsLast.map(function (x) {
+    result.push(x.name);
+  });
+
+  // console.log(result);
+
+  return result;
+};
+
+metalsListSortedLast(resultMetalsLast);
+
+// Question 5: Create a list of every element used in the composition of the metals, and store their average concentration
+
+// let metalsListAverageLast = function (metalsLast) {
+//   let result = {};
+
+//   metalsLast.map(function (x) {
+//     Object.keys(x.composition).map(function (y) {
+//       // console.log(x.composition);
+//       // console.log(y);
+//       result[y] = [];
+//     });
+//   });
+
+//   metalsLast.map(function (z) {
+//     Object.entries(z.composition).map(function ([key, value]) {
+//       // console.log(key);
+//       // console.log(value);
+//       result[key].push(value);
+//     });
+//   });
+
+//   // console.log(result);
+
+//   metalsLast.map(function (z) {
+//     Object.keys(z.composition).map(function (a) {
+//       result[a] = averageLast(result[a]);
+//     });
+//   });
+
+//   // console.log(result);
+
+//   return result;
+// };
+
+// let averageLast = function (elem) {
+//   let arr = elem.reduce((a, b) => a + b) / elem.length;
+//   return arr;
+// };
+
+// metalsListAverageLast(metalsLast);
+
+// Part 6
+
+// Question 1: In the first question, what would be more appropriate between a for..of, a forEach and map ?

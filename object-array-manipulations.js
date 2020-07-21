@@ -536,16 +536,84 @@ let listMetalsByTypeForIn = function (metalsUpdate) {
   let resultAns = {};
 
   for (const element in metalsUpdate) {
-    // console.log(metalsUpdate[element].type);
     resultAns[metalsUpdate[element].type] = [];
   }
+  // console.log(resultAns);
 
   for (const elem in metalsUpdate) {
     resultAns[metalsUpdate[elem].type].push(metalsUpdate[elem].name);
   }
-  console.log(resultAns);
+
+  // console.log(resultAns);
 
   return resultAns;
 };
 
 listMetalsByTypeForIn(metalsUpdate);
+
+// Question 4: Create a list of all metals sorted by their carbon concentration (in descending order)
+
+let listMetalsSortedForIn = function (metalsUpdate) {
+  let resultAns = metalsUpdate.sort((a, b) =>
+    a.composition.carbon < b.composition.carbon
+      ? 1
+      : b.composition.carbon < a.composition.carbon
+      ? -1
+      : 0
+  );
+
+  // console.log(resultAns);
+
+  let result = [];
+
+  for (const element in resultAns) {
+    result.push(resultAns[element].name);
+  }
+  // console.log(result);
+  return result;
+};
+
+listMetalsSortedForIn(metalsUpdate);
+
+// Question 5: Create a list of every element used in the composition of the metals, and store their average concentration
+
+let listMetalsAverageForIn = function (metalsUpdate) {
+  let result = {};
+
+  for (const elements in metalsUpdate) {
+    // console.log(metalsUpdate[elements]);
+    for (const elem in metalsUpdate[elements].composition) {
+      // console.log(elem);
+      result[elem] = [];
+    }
+  }
+
+  // console.log(result);
+
+  for (const elements in metalsUpdate) {
+    // console.log(metalsUpdate[elements]);
+    for (const elems in metalsUpdate[elements].composition) {
+      // console.log(elems);
+      // console.log(metalsUpdate[elements].composition.elems);
+      result[elems].push(metalsUpdate[elements].composition[elems]);
+    }
+  }
+
+  // console.log(result);
+
+  for (const elem in result) {
+    // console.log(result[elem]);
+    result[elem] = averageFuncForIn(result[elem]).toFixed(3);
+  }
+
+  console.log(result);
+
+  return result;
+};
+
+let averageFuncForIn = function (elem) {
+  let arr = elem.reduce((a, b) => a + b) / elem.length;
+  return arr;
+};
+
+listMetalsAverageForIn(metalsUpdate);

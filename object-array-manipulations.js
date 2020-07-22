@@ -191,7 +191,7 @@ let avgConcentration = function (metals) {
     result[key] = average(values);
   }
 
-  console.log(result);
+  // console.log(result);
 
   return result;
 
@@ -714,14 +714,14 @@ const allMetalsLast = function (metalsLast) {
   let result = [];
   let values;
 
-  metalsLast.map(function (x) {
+  let finalResult = metalsLast.map(function (x) {
     values = x.name;
-    result.push(values);
+    return values;
   });
 
-  // console.log(result);
+  // console.log(finalResult);
 
-  return result;
+  return finalResult;
 };
 
 allMetalsLast(metalsLast);
@@ -729,19 +729,13 @@ allMetalsLast(metalsLast);
 // Question 2: Create a list of all metals with their type in the collection
 
 const allMetalsTypeLast = function (metalsLast) {
-  let result = [];
-  let valuesFirst;
-  let valuesSecond;
-
-  metalsLast.map(function (x) {
-    valuesFirst = x.name;
-    valuesSecond = x.type;
-    result.push(valuesFirst + " " + valuesSecond);
+  let finalResult = metalsLast.map(function (x) {
+    return x.name + " " + x.type;
   });
 
-  // console.log(result);
+  // console.log(finalResult);
 
-  return result;
+  return finalResult;
 };
 
 allMetalsTypeLast(metalsLast);
@@ -777,60 +771,85 @@ let resultMetalsLast = metals.filter((element, index) => {
 });
 
 let metalsListSortedLast = function (resultMetalsLast) {
-  result = [];
-
-  resultMetalsLast.map(function (x) {
-    result.push(x.name);
+  let finalResult = resultMetalsLast.map(function (x) {
+    return x.name;
   });
 
-  // console.log(result);
+  // console.log(finalResult);
 
-  return result;
+  return finalResult;
 };
 
 metalsListSortedLast(resultMetalsLast);
 
 // Question 5: Create a list of every element used in the composition of the metals, and store their average concentration
 
-// let metalsListAverageLast = function (metalsLast) {
-//   let result = {};
+let metalsListAverageLast = function (metalsLast) {
+  let result = {};
+  let arr;
 
-//   metalsLast.map(function (x) {
-//     Object.keys(x.composition).map(function (y) {
-//       // console.log(x.composition);
-//       // console.log(y);
-//       result[y] = [];
-//     });
-//   });
+  metalsLast.map(function (x) {
+    Object.keys(x.composition).map(function (y) {
+      // console.log(x.composition);
+      // console.log(y);
+      result[y] = [];
+    });
+  });
 
-//   metalsLast.map(function (z) {
-//     Object.entries(z.composition).map(function ([key, value]) {
-//       // console.log(key);
-//       // console.log(value);
-//       result[key].push(value);
-//     });
-//   });
+  metalsLast.map(function (z) {
+    Object.entries(z.composition).map(function ([key, value]) {
+      // console.log(key);
+      // console.log(value);
+      result[key].push(value);
+    });
+  });
 
-//   // console.log(result);
+  // console.log(result);
 
-//   metalsLast.map(function (z) {
-//     Object.keys(z.composition).map(function (a) {
-//       result[a] = averageLast(result[a]);
-//     });
-//   });
+  let avg = function (elem) {
+    let arr = elem.reduce((a, b) => a + b) / elem.length;
+    return arr;
+  };
 
-//   // console.log(result);
+  metalsLast.map((z) =>
+    Object.keys(z.composition).map(function (a) {
+      result[a].push(avg(result[a]));
+    })
+  );
 
-//   return result;
-// };
+  console.log(result);
+  return result;
+};
 
-// let averageLast = function (elem) {
-//   let arr = elem.reduce((a, b) => a + b) / elem.length;
-//   return arr;
-// };
-
-// metalsListAverageLast(metalsLast);
+metalsListAverageLast(metalsLast);
 
 // Part 6
 
 // Question 1: In the first question, what would be more appropriate between a for..of, a forEach and map ?
+
+// The map method would be the most appropriate because metals is an array of objects and to inspect each element
+// in the array, the map method is able to iterate over the array items simply using a callback to return the array
+// with the same number of elements in it already and allows you to decide what the structure of the items is.
+
+// Question 2: In the second question, what would be more appropriate between a for..of, a forEach and map ?
+
+// The map method would be the most appropriate because metals is an array of objects and to inspect each element
+// in the array, the map method is able to iterate over the array items simply using a callback to return the array
+// with the same number of elements in it already and allows you to decide what the structure of the items is.
+
+// Question 3: In the third question, what would be more appropriate between a for..of, a forEach and map ?
+
+// The for..of loop is the most appropriate because it can easily iterate over all the elements of an array, in this
+// case it iterates over the metals array of objects to obtain the values of name and then makes the values in the
+// empty object an empty array, to push in the specified names. The for..of loop is the most efficient to loop over
+// array of objects.
+
+// Question 4: In the fourth question, after sorting, what would be more appropriate between a for..of, a forEach and map ?
+// The map method is the most appropriate because it creates a new array with elements inserted as the map function allows
+// functions to be invoked within the method itself.
+
+// Question 5: In the fifth question, what would be more appropriate between a for..of, a forEach and map ?
+// The for..of loop is the most appropriate because it iterates of over the objects (elements) in the metals array as
+// Object.keys, Object.values, and Object.entries can be use to extract key and values of the objects, as well it
+// invokes iteraration hooks with staments that can be executed to find the average of the array such as in this
+// question.
